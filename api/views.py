@@ -122,7 +122,7 @@ class VoteView(APIView):
             access = jwt.decode(header_authorization, SECRET_KEY, algorithms=['HS256'])
             user = User.objects.get(id=access["user_id"])
 
-        except jwt.exceptions.ExpiredSignatureError:
+        except Exception:
             return Response({'message': '투표는 로그인이 필요합니다!'}, status=status.HTTP_401_UNAUTHORIZED)
 
         if user.is_authenticated:
